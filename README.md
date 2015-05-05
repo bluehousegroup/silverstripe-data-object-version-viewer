@@ -21,20 +21,20 @@ Data Object Version Viewer
 	  extra_requirements_css:  
 	    - 'data_object_version_viewer/css/styles.css'  
 
-### within your DataObject class
+### Within your DataObject class
 
-class MyDataObject extends DataObject {
+	class MyDataObject extends DataObject {
 
-	// ... your class code here ...
+		// ... your class code here ...
 
-	public function getCMSFields() {
-		$fields = parent::getCMSFields();
+		public function getCMSFields() {
+			$fields = parent::getCMSFields();
 
-		// If this is an exisiting record, add Version Viewer tabs
-		if($this->ID) {
-			$fields = $this->addVersionViewer($fields, $this);
+			// If this is an exisiting record, add Version Viewer tabs
+			if($this->ID) {
+				$fields = $this->addVersionViewer($fields, $this);
+			}
+
+			return $fields;
 		}
-
-		return $fields;
 	}
-}
