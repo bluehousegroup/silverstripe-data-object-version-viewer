@@ -1,6 +1,6 @@
 Data Object Version Viewer
 ==========================
-
+![Screenshot](https://github.com/bluehousegroup/silverstripe-data-object-version-viewer/blob/master/VersionViewerScreenShot.png)
 ## Usage
 
  - Register the extension class and the css file in your config.yml (see below)
