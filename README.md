@@ -19,7 +19,7 @@ Data Object Version Viewer
 	    - VersionViewerExtension  
 	LeftAndMain:  
 	  extra_requirements_css:  
-	    - 'data_object_version_viewer/css/styles.css'  
+	    - 'silverstripe-data-object-version-viewer/css/styles.css'  
 
 ### Within your DataObject class
 
