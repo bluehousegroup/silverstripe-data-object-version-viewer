@@ -10,6 +10,9 @@ Data Object Version Viewer
    - All fields passed to it in the FieldList argument, within a tab named 'Current'
    - Previous versions of this data object displayed in a tab called 'History'
 
+### Install with Composer  
+	composer require bluehousegroup/silverstripe-data-object-version-viewer
+
 ## Example code
 
 ### config.yml
