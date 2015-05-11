@@ -4,7 +4,7 @@
     "homepage": "https://github.com/bluehousegroup/silverstripe-data-object-version-viewer",
     "type": "silverstripe-module",
     "keywords": ["silverstripe", "data objects", "version"],
-	"license": "BSD-3-Clause",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Isaiah Keepin",
