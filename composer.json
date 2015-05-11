@@ -1,6 +1,7 @@
 {
     "name": "bluehousegroup/silverstripe-data-object-version-viewer",
     "description": "Allows viewing of version history for data objects inside of the SilverStripe CMS",
+    "homepage": "https://github.com/bluehousegroup/silverstripe-data-object-version-viewer",
     "type": "silverstripe-module",
     "keywords": ["silverstripe", "data objects", "version"],
 	"license": "BSD-3-Clause",
