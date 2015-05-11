@@ -1,6 +1,10 @@
 Data Object Version Viewer
 ==========================
 ![Screenshot](https://github.com/bluehousegroup/silverstripe-data-object-version-viewer/blob/master/VersionViewerScreenShot.png)
+
+### Install with Composer  
+	composer require bluehousegroup/silverstripe-data-object-version-viewer
+
 ## Usage
 
  - Register the extension class and the css file in your config.yml (see below)
@@ -9,9 +13,6 @@ Data Object Version Viewer
  - Function will return FieldList object containing:
    - All fields passed to it in the FieldList argument, within a tab named 'Current'
    - Previous versions of this data object displayed in a tab called 'History'
-
-### Install with Composer  
-	composer require bluehousegroup/silverstripe-data-object-version-viewer
 
 ## Example code
 
