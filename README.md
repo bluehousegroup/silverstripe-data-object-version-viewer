@@ -16,15 +16,6 @@ Data Object Version Viewer
 
 ## Example code
 
-### config.yml
-
-	DataObject:  
-	  extensions:  
-	    - VersionViewerExtension  
-	LeftAndMain:  
-	  extra_requirements_css:  
-	    - 'silverstripe-data-object-version-viewer/css/styles.css'  
-
 ### Within your DataObject class
 
 	class MyDataObject extends DataObject {
