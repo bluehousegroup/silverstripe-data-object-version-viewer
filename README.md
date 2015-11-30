@@ -7,7 +7,6 @@ Data Object Version Viewer
 
 ## Usage
 
- - Register the extension class and the css file in your config.yml (see below)
  - Call function addVersionViewer from within getCMSFields on your DataObject
  - Pass a FieldList object and a DataObject object as arguments
  - Function will return FieldList object containing:
