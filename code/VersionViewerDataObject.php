@@ -3,7 +3,7 @@
 class VersionViewerDataObject extends DataExtension {
 
 	public function addVersionViewer(FieldList $fields) {
-		if($this->owner->hasExtension('Versioned')) {
+		if($this->owner->hasExtension('Versioned') || $this->owner->hasExtension('VersionedDataObject')) {
 			// Get the object where this function was called for reference purposes
 			$object = $this->owner;
 
