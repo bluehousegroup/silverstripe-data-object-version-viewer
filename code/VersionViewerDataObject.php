@@ -1,11 +1,9 @@
 <?php
 
-class VersionViewerDataObject extends DataExtension
-{
+class VersionViewerDataObject extends DataExtension {
 
-    public function addVersionViewer(FieldList $fields)
-    {
-        if ($this->owner->hasExtension('Versioned') || $this->owner->hasExtension('VersionedDataObject')) {
+    public function addVersionViewer(FieldList $fields) {
+        if($this->owner->hasExtension('Versioned') || $this->owner->hasExtension('VersionedDataObject')) {
             // Get the object where this function was called for reference purposes
             $object = $this->owner;
 
@@ -20,11 +18,11 @@ class VersionViewerDataObject extends DataExtension
 
             // Add all existing tabs to "Current" tabset
             $first = true;
-            foreach ($current_tabs as $tab) {
+            foreach($current_tabs as $tab) {
                 // If we have the getVersionedState function,
                 // add a notice regarding the versioned state to the first tab
                 // TODO incorporate VersionedDataObjectState extension into this module
-                if ($first && $object->hasMethod('getVersionedState')) {
+                if($first && $object->hasMethod('getVersionedState')) {
                     $fields->addFieldToTab("Root.Current." . $tab->title,
                         LiteralField::create('VersionedState',
                             '<div class="message notice"><p>' . $object->getVersionedState() . '</p></div>'
@@ -36,10 +34,10 @@ class VersionViewerDataObject extends DataExtension
             }
 
             // Remove any fields that have VersionViewerVisibility turned off
-            foreach ($current_tabs as &$tab) {
-                foreach ($tab->Fields() as $field) {
+            foreach($current_tabs as &$tab) {
+                foreach($tab->Fields() as $field) {
                     // echo '<pre>'.$field->Name.' Viewable? '; print_r($field->versionViewerVisibility);
-                    if (!$field->versionViewerVisibility && $tab->fieldByName($field->Name)) {
+                    if(!$field->versionViewerVisibility && $tab->fieldByName($field->Name)) {
                         $tab->removeByName($field->Name);
                     }
                 }
@@ -51,14 +49,14 @@ class VersionViewerDataObject extends DataExtension
             // So find fields relating to those relationships, remove them,
             // and add a message regarding this
             $untracked_msg = "";
-            foreach ($current_tabs as &$tab) {
-                foreach ($tab->Fields() as $field) {
+            foreach($current_tabs as &$tab) {
+                foreach($tab->Fields() as $field) {
                     $rel_class = $object->getRelationClass($field->Name);
-                    if ($rel_class) {
-                        if (in_array($rel_class, $object->has_many()) || in_array($rel_class, $object->many_many())) {
-                            if ($tab->fieldByName($field->Name)) {
+                    if($rel_class) {
+                        if(in_array($rel_class, $object->has_many()) || in_array($rel_class, $object->many_many())) {
+                            if($tab->fieldByName($field->Name)) {
                                 $tab->removeByName($field->Name);
-                                if (!$untracked_msg) {
+                                if(!$untracked_msg) {
                                     // $untracked_msg = '<div class="message notice"><p>Note: the following relationships are not tracked by versioning because they involve multiple records:<br />';
                                     $untracked_msg = '<p>' . $field->Title();
                                 } else {
@@ -69,16 +67,16 @@ class VersionViewerDataObject extends DataExtension
                     }
                 }
             }
-            if ($untracked_msg) {
+            if($untracked_msg) {
                 $untracked_msg .= '</p>';
             }
 
             // Get all past versions of this data object and put the relevant data in a set of tabs
             // within a tabset called "History"
             $versions = $object->allVersions();
-            foreach ($versions as $version) {
+            foreach($versions as $version) {
                 // Get a record of this version of the object
-                $record = Versioned::get_version($object->ClassName, $object->ID, $version->Version);
+                $record = self::get_version($object->ClassName, $object->ID, $version->Version);
 
                 // Make a set of read-only fields for use in assembling the History tabs
                 $read_fields = $current_tabs->makeReadonly();
@@ -88,8 +86,8 @@ class VersionViewerDataObject extends DataExtension
                 $form->loadDataFrom($record);
 
                 // Add the version number to each field name so we don't have duplicate field names
-                if ($form->fields->dataFields()) {
-                    foreach ($form->fields->dataFields() as $field) {
+                if($form->fields->dataFields()) {
+                    foreach($form->fields->dataFields() as $field) {
                         $field->Name = $field->Name . "version" . $version->Version;
                     }
                 }
@@ -104,11 +102,11 @@ class VersionViewerDataObject extends DataExtension
                 $publisher_heading = "";
                 $author_heading = "";
 
-                if ($publishedby) {
+                if($publishedby) {
                     $publisher_heading = " by " . $publishedby->getName();
                 }
 
-                if ($authoredby) {
+                if($authoredby) {
                     $author_heading = " (Authored by " . $authoredby->getName() . ")";
                 }
 
@@ -118,7 +116,7 @@ class VersionViewerDataObject extends DataExtension
                 $nice_date = $up_date->FormatFromSettings();
                 $tab_title = $version->Version . " - " . $nice_date . " (" . $was_published . ")";
                 $latest_version_notice = "";
-                if ($version->isLatestVersion()) {
+                if($version->isLatestVersion()) {
                     $latest_version_notice = " (latest version)";
                 }
                 $tab_heading = "<div class='message notice'><p><strong>Viewing version " . $version->Version . $latest_version_notice . ".</strong><br>" . $was_published_full . $publisher_heading . " on " . $nice_date . $author_heading . "</p></div>";
@@ -127,7 +125,7 @@ class VersionViewerDataObject extends DataExtension
                 $fields->addFieldsToTab('Root.History.' . $tab_title, LiteralField::create('versionHeader'.$version->Version, $tab_heading));
                 $fields->addFieldsToTab('Root.History.' . $tab_title, $form->fields);
                 // Add notice regarding untracked relationships
-                if ($untracked_msg) {
+                if($untracked_msg) {
                     $fields->addFieldsToTab('Root.History.' . $tab_title, HeaderField::create('untrackedMessageHeader'.$version->Version, 'Note: the relationships listed below are not tracked by versioning because they involve multiple records', 4));
                     $fields->addFieldsToTab('Root.History.' . $tab_title, LiteralField::create('untrackedMessage'.$version->Version, $untracked_msg));
                     // $fields->addFieldsToTab('Root.History.' . $tab_title, LiteralField::create('untrackedMessage'.$version->Version, $untracked_msg));
@@ -135,5 +133,26 @@ class VersionViewerDataObject extends DataExtension
             }
         }
         return $fields;
+    }
+
+    /**
+     * Modified get_version query from Versioned core class
+     * - adapted to return the current class, rather than the baseDataClass
+     *
+     * Return the specific version of the given id.
+     *
+     * @param string $class
+     * @param int $id
+     * @param int $version
+     *
+     * @return DataObject
+     */
+    public static function get_version($class, $id, $version) {
+        $list = DataList::create($class)
+            ->where("\"$class\".\"RecordID\" = $id")
+            ->where("\"$class\".\"Version\" = " . (int)$version)
+            ->setDataQueryParam("Versioned.mode", 'all_versions');
+
+        return $list->First();
     }
 }
