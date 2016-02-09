@@ -1,7 +1,7 @@
 <?php
 
-class VersionViewerDataObject extends DataExtension {
-
+class VersionViewerDataObject extends DataExtension
+{
     public function addVersionViewer(FieldList $fields) {
         if($this->owner->hasExtension('Versioned') || $this->owner->hasExtension('VersionedDataObject')) {
             // Get the object where this function was called for reference purposes
@@ -10,11 +10,13 @@ class VersionViewerDataObject extends DataExtension {
             // Get all tabs in the current model admin and prepart to put within a tabset called "Current"
             $current_tabs = $fields->find('Name', 'Root')->Tabs();
             $fields = FieldList::create(
-                TabSet::create("Root",
+                $top = TabSet::create("Root",
                     $currenttab = TabSet::create("Current"),
                     $historytab = TabSet::create("History")->addExtraClass("vertical-tabs")
                 )
             );
+
+            $top->addExtraClass('tab-versioned');
 
             // Add all existing tabs to "Current" tabset
             $first = true;
@@ -42,7 +44,6 @@ class VersionViewerDataObject extends DataExtension {
                     }
                 }
             }
-                 // die();
 
 
             // Also, as of now, Versioned does not track has_many or many_many relationships
@@ -107,14 +108,14 @@ class VersionViewerDataObject extends DataExtension {
                 }
 
                 if($authoredby) {
-                    $author_heading = " (Authored by " . $authoredby->getName() . ")";
+                    $author_heading = " <em>authored by " . $authoredby->getName() . "</em>";
                 }
 
                 $up_date = new SS_Datetime('update');
                 $up_date->setValue($version->LastEdited);
 
                 $nice_date = $up_date->FormatFromSettings();
-                $tab_title = $version->Version . " - " . $nice_date . " (" . $was_published . ")";
+                $tab_title =  $nice_date . ' <span class="history-state">' . $was_published_full .  '</span> <span class="history-author">Author: ' . $authoredby->getName() . '</span>';
                 $latest_version_notice = "";
                 if($version->isLatestVersion()) {
                     $latest_version_notice = " (latest version)";
@@ -126,9 +127,8 @@ class VersionViewerDataObject extends DataExtension {
                 $fields->addFieldsToTab('Root.History.' . $tab_title, $form->fields);
                 // Add notice regarding untracked relationships
                 if($untracked_msg) {
-                    $fields->addFieldsToTab('Root.History.' . $tab_title, HeaderField::create('untrackedMessageHeader'.$version->Version, 'Note: the relationships listed below are not tracked by versioning because they involve multiple records', 4));
+                    $fields->addFieldsToTab('Root.History.' . $tab_title, HeaderField::create('untrackedMessageHeader'.$version->Version, 'Note: the relationships listed below are not tracked in this view because they involve multiple records', 4));
                     $fields->addFieldsToTab('Root.History.' . $tab_title, LiteralField::create('untrackedMessage'.$version->Version, $untracked_msg));
-                    // $fields->addFieldsToTab('Root.History.' . $tab_title, LiteralField::create('untrackedMessage'.$version->Version, $untracked_msg));
                 }
             }
         }
