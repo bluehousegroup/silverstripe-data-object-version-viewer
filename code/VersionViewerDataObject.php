@@ -115,7 +115,7 @@ class VersionViewerDataObject extends DataExtension
 				if($authoredby) {
 					$author_heading = " <em>authored by " . $authoredby->getName() . "</em>";
 					$tab_title = $nice_date . ' <span class="history-state">' . $was_published_full .  '</span> <span class="history-author">Author: ' . $authoredby->getName() . '</span>';
-				else {
+				} else {
 					$author_heading = "";
 					$tab_title = $nice_date . ' <span class="history-state">' . $was_published_full .  '</span>';
 				}
