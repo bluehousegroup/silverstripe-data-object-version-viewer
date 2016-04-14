@@ -115,7 +115,7 @@ class VersionViewerDataObject extends DataExtension
                 $up_date->setValue($version->LastEdited);
 
                 $nice_date = $up_date->FormatFromSettings();
-                $tab_title =  $nice_date . ' <span class="history-state">' . $was_published_full .  '</span> <span class="history-author">Author: ' . $authoredby->getName() . '</span>';
+                $tab_title =  $nice_date . ' <span class="history-state">' . $was_published_full .  '</span> <span class="history-author">Author: ' . $authoredby ? $authoredby->getName() : 'N/A' . '</span>';
                 $latest_version_notice = "";
                 if($version->isLatestVersion()) {
                     $latest_version_notice = " (latest version)";
