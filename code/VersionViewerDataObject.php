@@ -103,23 +103,28 @@ class VersionViewerDataObject extends DataExtension
 				$publisher_heading = "";
 				$author_heading = "";
 
+				$up_date = new SS_Datetime('update');
+				$up_date->setValue($version->LastEdited);
+
+				$nice_date = $up_date->FormatFromSettings();
+
 				if($publishedby) {
 					$publisher_heading = " by " . $publishedby->getName();
 				}
 
 				if($authoredby) {
 					$author_heading = " <em>authored by " . $authoredby->getName() . "</em>";
+					$tab_title = $nice_date . ' <span class="history-state">' . $was_published_full .  '</span> <span class="history-author">Author: ' . $authoredby->getName() . '</span>';
+				else {
+					$author_heading = "";
+					$tab_title = $nice_date . ' <span class="history-state">' . $was_published_full .  '</span>';
 				}
 
-				$up_date = new SS_Datetime('update');
-				$up_date->setValue($version->LastEdited);
-
-				$nice_date = $up_date->FormatFromSettings();
-				$tab_title =  $nice_date . ' <span class="history-state">' . $was_published_full .  '</span> <span class="history-author">Author: ' . $authoredby ? $authoredby->getName() : 'N/A' . '</span>';
 				$latest_version_notice = "";
 				if($version->isLatestVersion()) {
 					$latest_version_notice = " (latest version)";
 				}
+
 				$tab_heading = "<div class='message notice'><p><strong>Viewing version " . $version->Version . $latest_version_notice . ".</strong><br>" . $was_published_full . $publisher_heading . " on " . $nice_date . $author_heading . "</p></div>";
 
 				// Add fields to a tab headed with a description of this version
