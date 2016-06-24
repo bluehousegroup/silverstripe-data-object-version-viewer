@@ -1,0 +1,25 @@
+.history-panel {
+	margin: 0 20px;
+	border-top: 1px solid #ccc;
+}
+
+.history-list th {
+	font-weight: bold;
+}
+
+.history-list td, table.history-list th {
+	padding: 3px 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+.history-list tr.selected td {
+	color: #fff;
+}
+
+.history-list tr.selected {
+	background-color: #888;
+}
+
+#action_goSelectVersion {
+	display:none;
+}

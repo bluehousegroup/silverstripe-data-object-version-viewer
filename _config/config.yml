@@ -1,9 +1,0 @@
-DataObject:
-  extensions:
-    - VersionViewerDataObject
-FormField:
-  extensions:
-    - VersionViewerFormField
-LeftAndMain:
-  extra_requirements_css:
-    - 'silverstripe-data-object-version-viewer/css/styles.css'
