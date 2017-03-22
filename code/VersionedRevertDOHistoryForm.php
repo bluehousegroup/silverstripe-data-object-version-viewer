@@ -1,7 +1,5 @@
 <?php
 
-use Heyday\VersionedDataObjects\VersionedReadingMode;
-
 /**
  * Class VersionedDataObjectHistoryForm
  */
