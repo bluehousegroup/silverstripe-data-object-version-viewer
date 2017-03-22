@@ -1,10 +1,13 @@
 <?php
 
+use Heyday\VersionedDataObjects\VersionedReadingMode;
+
 /**
  * Class VersionedDataObjectHistoryForm
  */
 class VersionedRevertDOHistoryForm extends GridFieldDetailForm
 {
+
 }
 
 /**
