@@ -15,13 +15,16 @@ class VersionedRevertCMSPageEditController extends Extension
         {
             foreach($root->Tabs() as $tab)
             {
-                foreach($tab->Fields() as $field)
+                if(method_exists($tab, 'Fields'))
                 {
-                    if($field->Type() == 'grid' && $field->getName() == $request->param('OtherID'))
+                    foreach($tab->Fields() as $field)
                     {
-                        $config = $field->getConfig();
-                        $config->removeComponentsByType('GridFieldDetailForm');
-                        $config->addComponent(new VersionedRevertDOHistoryForm());
+                        if($field->Type() == 'grid' && $field->getName() == $request->param('OtherID'))
+                        {
+                            $config = $field->getConfig();
+                            $config->removeComponentsByType('GridFieldDetailForm');
+                            $config->addComponent(new VersionedRevertDOHistoryForm());
+                        }
                     }
                 }
             }
