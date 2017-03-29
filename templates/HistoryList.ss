@@ -1,4 +1,4 @@
-<% require css(silverstripe-data-object-version-viewer/css/history.css) %>
+<% require css(silverstripe-data-object-version-viewer/css/styles.css) %>
 <% require javascript(silverstripe-data-object-version-viewer/javascript/history.js) %>
 
 <div class="history-panel">
