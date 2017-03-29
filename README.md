@@ -7,14 +7,14 @@ Data Object Version Viewer
 
 ## Usage
 
- - Extend `silverstripe-versioneddataobjects` to add a 'History' button to a Gridfield or Model Admin
+ - Extend `silverstripe-versioneddataobjects` to add a 'History' button to a GridField or ModelAdmin
  - View, revert to, and publish a previous versions of a data object
 
 ## Example code
 
 When required/installed via composer, this module will automatically extend [silverstripe-versioneddataobjects](https://github.com/heyday/silverstripe-versioneddataobjects). Simply follow the versioneddataobjects module's README to get up and running (code examples reproduced below).
 
-NOTE: As of right now, this module requires there to be a Model Admin set up for a class that you're trying to version-control.
+Note: To use this on a GridField, you must place the GridField in a tab on Root (as shown in the second code snippet below).
 
 ### Within your DataObject class
 
@@ -78,6 +78,5 @@ class SliceAdmin extends Heyday\VersionedDataObjects\VersionedModelAdmin
 }
 ```
 
-### TO DO
-
-Add support for direct access to History Form from GridField (i.e., don't redirect to a Model Admin).
+## TO DO
+ - Make history form accessible on subtabs, not just those present on Root.
