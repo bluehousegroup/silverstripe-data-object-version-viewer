@@ -12,9 +12,7 @@ Data Object Version Viewer
 
 ## Example code
 
-When required/installed via composer, this module will automatically extend [silverstripe-versioneddataobjects](https://github.com/heyday/silverstripe-versioneddataobjects). Simply follow the versioneddataobjects module's README to get up and running (code examples reproduced below).
-
-Note: To use this on a GridField, you must place the GridField in a tab on Root (as shown in the second code snippet below).
+The implementation is very similar to the versioneddataobjects module, on which this module depends.
 
 ### Within your DataObject class
 
@@ -35,7 +33,7 @@ class Slice extends DataObject
 }
 ```
 
-To use `VersionedDataObject` records in a GridField, `GridFieldDetailForm` needs to be replaced with `VersionedDataObjectDetailsForm`:
+To use `VersionedDataObject` records in a GridField, `GridFieldDetailForm` needs to be replaced with `VersionedRevertDODetailsForm`:
 
 ```php
 // ...
@@ -55,7 +53,7 @@ public function getCMSFields()
 	);
 
 	$config->removeComponentsByType('GridFieldDetailForm');
-	$config->addComponent(new Heyday\VersionedDataObjects\VersionedDataObjectDetailsForm());
+	$config->addComponent(new VersionedRevertDODetailsForm());
 
 	return $fields;
 }
@@ -66,7 +64,7 @@ public function getCMSFields()
 ### Versioned DataObjects in a ModelAdmin
 
 ```php
-class SliceAdmin extends Heyday\VersionedDataObjects\VersionedModelAdmin
+class SliceAdmin extends VersionedRevertModelAdmin
 {
 	private static $menu_title = 'Slices';
 
@@ -77,6 +75,3 @@ class SliceAdmin extends Heyday\VersionedDataObjects\VersionedModelAdmin
 	];
 }
 ```
-
-## TO DO
- - Make history form accessible on subtabs, not just those present on Root.

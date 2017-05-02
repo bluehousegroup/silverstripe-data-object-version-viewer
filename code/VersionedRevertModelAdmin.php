@@ -1,23 +1,19 @@
 <?php
 
-class VersionedRevertModelAdmin extends Extension
-{
-    private static $allowed_actions = array(
-        'HistoryForm',
-    );
+use Heyday\VersionedDataObjects\VersionedModelAdmin;
 
-    public function HistoryForm($request = null)
-    {
-        $form = $this->owner->getEditForm();
-        $fields = $form->Fields();
+class VersionedRevertModelAdmin extends VersionedModelAdmin {
 
-        $config = $fields[0]->getConfig();
-        // Replace the detail form with our own.
-        $config->removeComponentsByType('GridFieldDetailForm');
-        $config->addComponent(new VersionedRevertDOHistoryForm());
+	public function getEditForm($id = null, $fields = null) {
 
-        $form->setFormAction(str_replace('/EditForm', '/HistoryForm', $form->FormAction()));
+		$form = parent::getEditForm($id, $fields);
 
-        return $form;
-    }
+		$form_fields = $form->Fields();
+		$grid_field = $form_fields->fieldByName($this->sanitiseClassName($this->modelClass));
+		$grid_field->getConfig()->removeComponentsByType('GridFieldDetailForm');
+		$grid_field->getConfig()->addComponent(new VersionedRevertDODetailsForm());
+
+		return $form;
+	}
+
 }
