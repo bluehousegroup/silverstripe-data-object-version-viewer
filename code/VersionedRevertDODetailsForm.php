@@ -25,9 +25,15 @@ class VersionedRevertDODetailsForm_ItemRequest extends VersionedDataObjectDetail
     );
 
     public function ItemEditForm() {
-        $form = parent::ItemEditForm();
 
-        $form->Actions()->push(FormAction::create('goHistory','History'));
+        Requirements::javascript('silverstripe-data-object-version-viewer/javascript/gridfield_versioned_revert.js');
+
+        $form = parent::ItemEditForm();
+        $form->addExtraClass('do-version-viewer-form');
+        // Only add 'History' button for existing records
+        if ($this->request->param('Action') === 'edit' || $this->request->param('Action') === 'ItemEditForm') {
+            $form->Actions()->push(FormAction::create('goHistory','History'));
+        }
 
         return $form;
     }
@@ -199,7 +205,7 @@ class VersionedRevertDODetailsForm_ItemRequest extends VersionedDataObjectDetail
 
         $controller = $this->getToplevelController();
         $controller->getResponse()->addHeader("X-Pjax", "Content");
-        $controller->redirect(Controller::join_links($this->Link(), 'history'));
+        $controller->redirect(Controller::join_links($this->Link(), 'edit'));
     }
 
     public function goBackToEdit($data, $form) {

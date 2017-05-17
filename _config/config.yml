@@ -1,3 +1,6 @@
 ---
 Name: silverstripe-data-object-version-viewer
 ---
+BetterButtonsActions:
+  versioned_edit:
+    Group_Versioning: false

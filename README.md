@@ -75,3 +75,7 @@ class SliceAdmin extends VersionedRevertModelAdmin
 	];
 }
 ```
+
+## Notes
+
+This module is intended to be compatible with the betterbuttons module. Toward that end, it removes the betterbuttons's Versioning button group in order to keep in tact the buttons added by the versiondataobjects plug-in. This change affects only the forms configured with the VersionedRevertDODetailsForm extension.
