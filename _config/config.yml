@@ -1,6 +1,7 @@
 ---
 Name: silverstripe-data-object-version-viewer
 ---
+# Remove betterbuttons' "Versioning..." group -- it conflicts with versioneddataobjects 
 BetterButtonsActions:
   versioned_edit:
     Group_Versioning: false

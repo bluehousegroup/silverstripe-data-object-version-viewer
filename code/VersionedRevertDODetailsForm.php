@@ -31,7 +31,7 @@ class VersionedRevertDODetailsForm_ItemRequest extends VersionedDataObjectDetail
         $form = parent::ItemEditForm();
         $form->addExtraClass('do-version-viewer-form');
         // Only add 'History' button for existing records
-        if ($this->request->param('Action') === 'edit' || $this->request->param('Action') === 'ItemEditForm') {
+        if ($this->record->exists()) {
             $form->Actions()->push(FormAction::create('goHistory','History'));
         }
 
